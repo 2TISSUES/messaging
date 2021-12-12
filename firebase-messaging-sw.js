@@ -7,7 +7,8 @@ console.log('Script loaded!')
 importScripts('https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js');
 importScripts('https://www.gstatic.com/firebasejs/9.6.0/firebase-messaging-compat.js');
 
-const firebaseConfig = {
+
+firebase.initializeApp({
   apiKey: "AIzaSyC1zJYEip3oRCKflBEzTYBM0P7oX5DiAkM",
   authDomain: "spamvictim.firebaseapp.com",
   databaseURL: "https://spamvictim.firebaseio.com",
@@ -15,10 +16,8 @@ const firebaseConfig = {
   storageBucket: "spamvictim.appspot.com",
   messagingSenderId: "486537133388",
   appId: "1:486537133388:web:21e39249b75df141c223e9",
-  measurementId: "${config.measurementId}"
-};
-
-firebase.initializeApp(firebaseConfig);
+  measurementId: "${config.measurementId}",
+});
 
 const messaging = firebase.messaging();
 
@@ -76,11 +75,11 @@ messaging.onBackgroundMessage(function (payload) {
 var cacheStorageKey = 'tinder-project-1'
 
 var cacheList = [
-  '/messaging/',
-  "/messaging/index.html",
-  "/messaging/main.css",
-  "/messaging/e.png",
-  "/messaging/firebase-logo.png"
+  '/',
+  "index.html",
+  "main.css",
+  "groupster.png",
+  "firebase-logo.png"
 ]
 
 self.addEventListener('install', function(e) {
