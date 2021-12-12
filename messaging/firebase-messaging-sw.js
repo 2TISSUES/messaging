@@ -4,8 +4,8 @@ console.log('Script loaded!')
 // These scripts are made available when the app is served or deployed on Firebase Hosting
 // If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup
 
-importScripts('https://www.gstatic.com/firebasejs/9.2.0/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/9.2.0/firebase-messaging-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.6.0/firebase-messaging-compat.js');
 
 const firebaseConfig = {
   apiKey: "AIzaSyC1zJYEip3oRCKflBEzTYBM0P7oX5DiAkM",
@@ -67,7 +67,7 @@ messaging.onBackgroundMessage(function (payload) {
 	const notificationTitle = 'Background Message Title';
 	const notificationOptions = {
 		body: 'Background Message body.',
-		icon: '/firebase-logo.png',
+		icon: 'firebase-logo.png',
 	};
 
 	self.registration.showNotification(notificationTitle, notificationOptions);
@@ -76,11 +76,11 @@ messaging.onBackgroundMessage(function (payload) {
 var cacheStorageKey = 'tinder-project-1'
 
 var cacheList = [
-  '/',
-  "index.html",
-  "main.css",
-  "e.png",
-  "firebase-logo.png"
+  '/messaging/',
+  "/messaging/index.html",
+  "/messaging/main.css",
+  "/messaging/e.png",
+  "/messaging/firebase-logo.png"
 ]
 
 self.addEventListener('install', function(e) {

@@ -124,11 +124,23 @@
 		<!-- Import and configure the Firebase SDK -->
 		<!-- These scripts are made available when the app is served or deployed on Firebase Hosting -->
 		<!-- If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup -->
-		<script src="/__/firebase/9.6.0/firebase-app-compat.js"></script>
-		<script src="/__/firebase/9.6.0/firebase-messaging-compat.js"></script>
-		<script src="/__/firebase/init.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+		<script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-messaging-compat.js"></script>
 
 		<script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyC1zJYEip3oRCKflBEzTYBM0P7oX5DiAkM",
+        authDomain: "spamvictim.firebaseapp.com",
+        databaseURL: "https://spamvictim.firebaseio.com",
+        projectId: "spamvictim",
+        storageBucket: "spamvictim.appspot.com",
+        messagingSenderId: "486537133388",
+        appId: "1:486537133388:web:21e39249b75df141c223e9",
+        measurementId: "${config.measurementId}"
+      };
+
+      firebase.initializeApp(firebaseConfig);
+
 			// Retrieve Firebase Messaging object.
 			const messaging = firebase.messaging();
 
@@ -305,16 +317,6 @@
 			resetUI();
 		</script>
     <script type="text/javascript">
-      if (navigator.serviceWorker != null) {
-        navigator.serviceWorker.register('sw.js')
-        .then(function(registration) {
-          console.log('Registered events at scope: ', registration.scope);
-        });
-      }
-  
-      fetch('./data.json')
-  
-      const statusEl = document.querySelector('#network-status')
       if (!navigator.onLine) {
         statusEl.classList = ['is-offline']
         statusEl.innerText = 'Offline'
