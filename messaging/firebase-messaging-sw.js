@@ -1,9 +1,24 @@
+console.log('Script loaded!')
+
 // Import and configure the Firebase SDK
 // These scripts are made available when the app is served or deployed on Firebase Hosting
 // If you do not serve/host your project using Firebase Hosting see https://firebase.google.com/docs/web/setup
-importScripts('/__/firebase/9.2.0/firebase-app-compat.js');
-importScripts('/__/firebase/9.2.0/firebase-messaging-compat.js');
-importScripts('/__/firebase/init.js');
+
+importScripts('https://www.gstatic.com/firebasejs/9.2.0/firebase-app-compat.js');
+importScripts('https://www.gstatic.com/firebasejs/9.2.0/firebase-messaging-compat.js');
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC1zJYEip3oRCKflBEzTYBM0P7oX5DiAkM",
+  authDomain: "spamvictim.firebaseapp.com",
+  databaseURL: "https://spamvictim.firebaseio.com",
+  projectId: "spamvictim",
+  storageBucket: "spamvictim.appspot.com",
+  messagingSenderId: "486537133388",
+  appId: "1:486537133388:web:21e39249b75df141c223e9",
+  measurementId: "${config.measurementId}"
+};
+
+firebase.initializeApp(firebaseConfig);
 
 const messaging = firebase.messaging();
 
@@ -57,3 +72,58 @@ messaging.onBackgroundMessage(function (payload) {
 
 	self.registration.showNotification(notificationTitle, notificationOptions);
 });
+
+var cacheStorageKey = 'tinder-project-1'
+
+var cacheList = [
+  '/',
+  "index.html",
+  "main.css",
+  "e.png",
+  "firebase-logo.png"
+]
+
+self.addEventListener('install', function(e) {
+  console.log('Cache event!')
+  e.waitUntil(
+    caches.open(cacheStorageKey).then(function(cache) {
+      console.log('Adding to Cache:', cacheList)
+      return cache.addAll(cacheList)
+    }).then(function() {
+      console.log('Skip waiting!')
+      return self.skipWaiting()
+    })
+  )
+})
+
+self.addEventListener('activate', function(e) {
+  console.log('Activate event')
+  e.waitUntil(
+    Promise.all(
+      caches.keys().then(cacheNames => {
+        return cacheNames.map(name => {
+          if (name !== cacheStorageKey) {
+            return caches.delete(name)
+          }
+        })
+      })
+    ).then(() => {
+      console.log('Clients claims.')
+      return self.clients.claim()
+    })
+  )
+})
+
+self.addEventListener('fetch', function(e) {
+  // console.log('Fetch event:', e.request.url)
+  e.respondWith(
+    caches.match(e.request).then(function(response) {
+      if (response != null) {
+        console.log('Using cache for:', e.request.url)
+        return response
+      }
+      console.log('Fallback to fetch:', e.request.url)
+      return fetch(e.request.url)
+    })
+  )
+})
