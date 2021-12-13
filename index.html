@@ -241,7 +241,7 @@ and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation
               id="sports"
               class="topic"
               value="sports"
-              onclick="subscribe()"
+              onclick="subscribe(event)"
             >
               sports
             </button>
@@ -249,7 +249,7 @@ and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation
               id="literature"
               class="topic"
               value="literature"
-              onclick="subscribe()"
+              onclick="subscribe(event)"
             >
               literature
             </button>
@@ -334,17 +334,9 @@ and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation
       }
 
       function subscribe(e) {
+        console.log(e);
         topic = e.target.value;
-        getMessaging()
-          .subscribeToTopic(registrationTokens, topic)
-          .then((response) => {
-            // See the MessagingTopicManagementResponse reference documentation
-            // for the contents of response.
-            console.log("Successfully subscribed to topic:", response);
-          })
-          .catch((error) => {
-            console.log("Error subscribing to topic:", error);
-          });
+        subscribeTokenToTopic(document.querySelector("#token").textContent, topic);
       }
 
       function showToken(currentToken) {
@@ -453,6 +445,34 @@ and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation
       function updateUIForPushPermissionRequired() {
         showHideDiv(tokenDivId, false);
         showHideDiv(permissionDivId, true);
+      }
+
+      function subscribeTokenToTopic(token, topic) {
+        fetch(
+          "https://iid.googleapis.com/iid/v1/" + token + "/rel/topics/" + topic,
+          {
+            method: "POST",
+            headers: new Headers({
+              Authorization:
+                "key=AAAAcUfffUw:APA91bEJqYfNiqZqr6--QFsl9v_zOi-nIVU_4UhsPKTY4irjagP7zkL8eGrbYXqBUqhHWOb0JReHZmaS5RpCgp7APbfpnExt9XcKospVrwtgxcdhK__Pm9B2IBREfzRkhiW9aUHq1174",
+            }),
+          }
+        )
+          .then((response) => {
+            if (response.status < 200 || response.status >= 400) {
+              throw (
+                "Error subscribing to  the following topic: " +
+                response.status +
+                " - " +
+                response.text()
+              );
+            } else {
+              console.log('Successfully subscribed to "' + topic + '"');
+            }
+          })
+          .catch((error) => {
+            console.error(error);
+          });
       }
 
       resetUI();
