@@ -290,3 +290,33 @@ function unsubscribeFromTopic(topic, tokens) {
 		.then((result) => console.log(result))
 		.catch((error) => console.log('error', error));
 }
+
+function signInAnonomously() {
+	firebase
+		.auth()
+		.signInAnonymously()
+		.then(() => {
+			console.log('Signed In Anonymously');
+			firebase.auth().onAuthStateChanged((user) => {
+				if (user) {
+					// User is signed in, see docs for a list of available properties
+					// https://firebase.google.com/docs/reference/js/firebase.User
+					var uid = user.uid;
+					const btn = document.querySelector('#login');
+					const userIdElement = document.createElement('h4');
+					const dataElement = document.createElement('p');
+					userIdElement.textContent = 'User ID:';
+					dataElement.textContent = uid;
+					btn.append(userIdElement);
+					btn.append(dataElement);
+				} else {
+					console.log('User is signed out.');
+				}
+			});
+		})
+		.catch((error) => {
+			var errorCode = error.code;
+			var errorMessage = error.message;
+			console.log('Error Code:' + errorCode + ': ' + errorMessage);
+		});
+}
