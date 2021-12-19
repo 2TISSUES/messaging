@@ -1,12 +1,13 @@
 const firebaseConfig = {
-	apiKey: 'AIzaSyC1zJYEip3oRCKflBEzTYBM0P7oX5DiAkM',
-	authDomain: 'spamvictim.firebaseapp.com',
-	databaseURL: 'https://spamvictim.firebaseio.com',
-	projectId: 'spamvictim',
-	storageBucket: 'spamvictim.appspot.com',
-	messagingSenderId: '486537133388',
-	appId: '1:486537133388:web:21e39249b75df141c223e9',
-	measurementId: '${config.measurementId}',
+	apiKey: 'AIzaSyA_IdsEDIKqTzRQH7O_gXdAsRg5cC8Syjo',
+	authDomain: 'ep-poc-messaging.firebaseapp.com',
+	databaseURL:
+		'https://ep-poc-messaging-default-rtdb.europe-west1.firebasedatabase.app',
+	projectId: 'ep-poc-messaging',
+	storageBucket: 'ep-poc-messaging.appspot.com',
+	messagingSenderId: '120694852415',
+	appId: '1:120694852415:web:9ca451bf2a1d6e9828618a',
+	measurementId: 'G-4SJ5QG8Z45',
 };
 
 firebase.initializeApp(firebaseConfig);
@@ -39,7 +40,7 @@ function resetUI() {
 	messaging
 		.getToken({
 			vapidKey:
-				'BOig49-Z0yU0CJ_Gaq4_A6G1wB6ezRmi6S88fjMJyghHmnXMEYM2yN2Bm4nfynajgTsQaZmLkzYrpbFCCF1GUIU',
+				'BFq7Rb3iED656-KjVSNUArkkKGpgmGEctJpIs0tEDcAkiDHZrXf9IdGEbhRkplnAxbxtvd6pg3YLBnOsIYI03iI',
 		})
 		.then((currentToken) => {
 			if (currentToken) {
@@ -194,7 +195,7 @@ function subscribeTokenToTopic(token, topic) {
 		method: 'POST',
 		headers: new Headers({
 			Authorization:
-				'key=AAAAcUfffUw:APA91bEJqYfNiqZqr6--QFsl9v_zOi-nIVU_4UhsPKTY4irjagP7zkL8eGrbYXqBUqhHWOb0JReHZmaS5RpCgp7APbfpnExt9XcKospVrwtgxcdhK__Pm9B2IBREfzRkhiW9aUHq1174',
+				'key=AAAAHBn5Sz8:APA91bHgSvSN2g-wJ8KA-yF28eqKt6MGucOW2ItPgXdN-H5RG4CG_4QoSbjaP-9ZKGJx0e9zzSdGSKPm3_yvnM94IjAJuhgJ9VSexyiwBr9i2fcCcSl3eE_cqPXmHePAH5WBZIQTM7b_',
 		}),
 	})
 		.then((response) => {
@@ -243,7 +244,7 @@ function sendNotification(notification, receiver) {
 	const myHeaders = new Headers();
 	myHeaders.append(
 		'Authorization',
-		'key=AAAAcUfffUw:APA91bEJqYfNiqZqr6--QFsl9v_zOi-nIVU_4UhsPKTY4irjagP7zkL8eGrbYXqBUqhHWOb0JReHZmaS5RpCgp7APbfpnExt9XcKospVrwtgxcdhK__Pm9B2IBREfzRkhiW9aUHq1174',
+		'key=AAAAHBn5Sz8:APA91bHgSvSN2g-wJ8KA-yF28eqKt6MGucOW2ItPgXdN-H5RG4CG_4QoSbjaP-9ZKGJx0e9zzSdGSKPm3_yvnM94IjAJuhgJ9VSexyiwBr9i2fcCcSl3eE_cqPXmHePAH5WBZIQTM7b_',
 	);
 	myHeaders.append('Content-Type', 'application/json');
 
@@ -269,7 +270,7 @@ function unsubscribeFromTopic(topic, tokens) {
 	var myHeaders = new Headers();
 	myHeaders.append(
 		'Authorization',
-		'key=AAAAcUfffUw:APA91bEJqYfNiqZqr6--QFsl9v_zOi-nIVU_4UhsPKTY4irjagP7zkL8eGrbYXqBUqhHWOb0JReHZmaS5RpCgp7APbfpnExt9XcKospVrwtgxcdhK__Pm9B2IBREfzRkhiW9aUHq1174',
+		'key=AAAAHBn5Sz8:APA91bHgSvSN2g-wJ8KA-yF28eqKt6MGucOW2ItPgXdN-H5RG4CG_4QoSbjaP-9ZKGJx0e9zzSdGSKPm3_yvnM94IjAJuhgJ9VSexyiwBr9i2fcCcSl3eE_cqPXmHePAH5WBZIQTM7b_',
 	);
 	myHeaders.append('Content-Type', 'application/json');
 
@@ -291,32 +292,27 @@ function unsubscribeFromTopic(topic, tokens) {
 		.catch((error) => console.log('error', error));
 }
 
-function signInAnonomously() {
-	firebase
-		.auth()
-		.signInAnonymously()
-		.then(() => {
-			console.log('Signed In Anonymously');
-			firebase.auth().onAuthStateChanged((user) => {
-				if (user) {
-					// User is signed in, see docs for a list of available properties
-					// https://firebase.google.com/docs/reference/js/firebase.User
-					var uid = user.uid;
-					const btn = document.querySelector('#login');
-					const userIdElement = document.createElement('h4');
-					const dataElement = document.createElement('p');
-					userIdElement.textContent = 'User ID:';
-					dataElement.textContent = uid;
-					btn.append(userIdElement);
-					btn.append(dataElement);
-				} else {
-					console.log('User is signed out.');
-				}
-			});
-		})
-		.catch((error) => {
-			var errorCode = error.code;
-			var errorMessage = error.message;
-			console.log('Error Code:' + errorCode + ': ' + errorMessage);
-		});
-}
+firebase
+	.auth()
+	.signInAnonymously()
+	.then(() => {
+		console.log('signed in');
+	})
+	.catch((error) => {
+		var errorCode = error.code;
+		var errorMessage = error.message;
+		console.log(errorCode, errorMessage);
+	});
+
+firebase.auth().onAuthStateChanged((user) => {
+	if (user) {
+		// User is signed in, see docs for a list of available properties
+		// https://firebase.google.com/docs/reference/js/firebase.User
+		var uid = user.uid;
+		console.log(uid);
+	} else {
+		// User is signed out
+		// ...
+		console.log('user signed out');
+	}
+});

@@ -236,7 +236,7 @@ and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation
 						</div>
 					</div>
 					<div>
-						<h4>Subscribe to one topic by pushing one button once</h4>
+						<h4>Subscribe or unsubscribe by pressing the buttons</h4>
 						<button
 							style="background-color: gray; color: white"
 							id="topic-sports"
@@ -267,7 +267,7 @@ and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation
 								class="mdl-textfield__input"
 								type="text"
 								id="tbxTitle"
-								value="Thanh Phong Pham ist der COOLSTE!"
+								value="Screw it were my final thoughts"
 							/>
 							<label class="mdl-textfield__label" for="tbxTitle"
 								>Title...</label
@@ -328,15 +328,15 @@ and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation
 						</button>
 					</div>
 					<button
-						id="login"
 						class="
 							mdl-button mdl-js-button mdl-js-ripple-effect
 							mdl-button--raised mdl-button--colored
 						"
-						onclick="signInAnonomously()"
+						onclick="signIn()"
 					>
 						Log in Anonymously
 					</button>
+					<div id="login-data"></div>
 				</div>
 			</main>
 			<div class="network-message">
